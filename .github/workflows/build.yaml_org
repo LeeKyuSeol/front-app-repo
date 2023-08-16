@@ -1,3 +1,4 @@
+
 name: Build Front
 
 on:
@@ -7,22 +8,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
-    
+
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v3              
+        uses: actions/checkout@v2
 
       - name: Check Node v
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}        
+        run: node -v
 
       - name: Build front
         run: |
+          npm audit fix --force
           npm install
           npm run build
 
